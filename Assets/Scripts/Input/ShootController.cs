@@ -17,8 +17,6 @@ namespace HTW.CAVE.Etage6App.Input
 		private readonly Queue<TennisballBehaviour> _ballQueue = new();
 		private GameObject _crosshair;
 
-		private readonly float _playerOffsetY = 0.7f;
-
 		private static Action<bool> _onSwitchLight;
 		private static bool _lightsOn = true;
 

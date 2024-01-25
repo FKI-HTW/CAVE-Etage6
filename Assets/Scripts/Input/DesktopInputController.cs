@@ -16,6 +16,11 @@ namespace HTW.CAVE.Etage6App.Input
 			_inputManager.RegisterInputController(this);
 		}
 
+		private void OnDestroy()
+		{
+			_inputManager.UnregisterInputController(this);
+		}
+
 		private void Update()
 		{
 			if (UnityEngine.Input.GetKeyDown(_shootButton))
