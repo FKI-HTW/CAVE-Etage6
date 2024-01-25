@@ -66,10 +66,7 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private void UpdateCrosshair()
 		{
-			Vector3 start = transform.position;
-			start.y += _playerOffsetY;
-			start += transform.forward;
-			if (Physics.Raycast(start, transform.forward, out RaycastHit hit, Mathf.Infinity))
+			if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
 			{
 				_crosshair.transform.GetChild(0).transform.rotation = Quaternion.Euler(hit.normal);
 				_crosshair.transform.position = hit.point;
