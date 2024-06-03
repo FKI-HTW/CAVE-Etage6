@@ -17,7 +17,7 @@ namespace HTW.CAVE.Etage6App.Input
 		private void Update()
 		{
 			transform.position += _movementSpeed * Time.deltaTime * (
-				(_inputManager.MovementInput.x * transform.right) + (_inputManager.MovementInput.y * transform.forward)
+				_inputManager.MovementInput.x * transform.right + _inputManager.MovementInput.y * transform.forward
 			);
 
 			transform.rotation = Quaternion.Euler(transform.eulerAngles + Vector3.up * _inputManager.RotationalInput.x);

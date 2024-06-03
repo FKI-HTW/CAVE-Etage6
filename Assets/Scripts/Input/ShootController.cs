@@ -43,7 +43,7 @@ namespace HTW.CAVE.Etage6App.Input
 
 		public void SwitchTennisBallLights(bool lightsOn)
 		{
-			foreach (TennisballBehaviour ball in _ballQueue)
+			foreach (var ball in _ballQueue)
 				ball.SwitchLight(lightsOn);
 		}
 
@@ -64,7 +64,7 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private void UpdateCrosshair()
 		{
-			if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
+			if (Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity))
 			{
 				_crosshair.transform.GetChild(0).transform.rotation = Quaternion.Euler(hit.normal);
 				_crosshair.transform.position = hit.point;
@@ -75,7 +75,7 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (side != _handSide) return;
 
-			TennisballBehaviour ball = _ballQueue.Count >= _maxBalls
+			var ball = _ballQueue.Count >= _maxBalls
 				? _ballQueue.Dequeue()
 				: Instantiate(_ammunitionPrefab, transform.position, transform.rotation);
 

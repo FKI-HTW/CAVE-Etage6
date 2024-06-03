@@ -185,10 +185,11 @@
       "url": "https://packages.unity.com"
     },
     "de.htw.cave": {
-      "version": "file:Cave",
+      "version": "https://github.com/CENTIS-HTW/CAVE.git#upm",
       "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
+      "source": "git",
+      "dependencies": {},
+      "hash": "de9303c720de00bd42bcda23497c804cd7a48317"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

@@ -6,8 +6,7 @@ namespace HTW.CAVE.Etage6App
 	{
 		[SerializeField] private AudioSource audioSource;
 
-		public bool Disabled { get => disabled; }
-		private bool disabled = false;
+		public bool Disabled { get; private set; }
 
 		private void Start()
 		{
@@ -17,7 +16,7 @@ namespace HTW.CAVE.Etage6App
 
 		private void OnCollisionEnter(Collision collision)
 		{
-			disabled = true;
+			Disabled = true;
 		}
 
 		public void MakeSound()
@@ -27,7 +26,7 @@ namespace HTW.CAVE.Etage6App
 
 		public void SwitchLight(bool lightsOn)
 		{
-			GameObject light = transform.GetChild(0).gameObject;
+			var light = transform.GetChild(0).gameObject;
 			light.SetActive(!lightsOn);
 		}
 	}

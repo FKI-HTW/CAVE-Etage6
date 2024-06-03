@@ -488,6 +488,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4890290278225541876}
   - component: {fileID: 1248729526003229212}
+  - component: {fileID: 7662858451217528860}
   m_Layer: 0
   m_Name: Virtual Eyes
   m_TagString: Untagged
@@ -523,6 +524,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceForwardZ: 1
+--- !u!81 &7662858451217528860
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931129906746557103}
+  m_Enabled: 1
 --- !u!1 &5372602847832491423
 GameObject:
   m_ObjectHideFlags: 0
