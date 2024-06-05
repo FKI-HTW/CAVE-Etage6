@@ -3,6 +3,7 @@ using LookingGlass.JoyconLib;
 
 namespace HTW.CAVE.Etage6App.Input
 {
+	// TODO : convert legacy input system and manual Joycon input to new InputSystem
 	public class JoyconInputController : MonoBehaviour, IInputController
 	{
 		[SerializeField] private InputManager _inputManager;

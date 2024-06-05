@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace HTW.CAVE.Etage6App.Input
@@ -18,9 +17,6 @@ namespace HTW.CAVE.Etage6App.Input
 		private readonly Queue<TennisballBehaviour> _ballQueue = new();
 		private GameObject _crosshair;
 
-		private static Action<bool> _onSwitchLight;
-		private static bool _lightsOn = true;
-
 		public void Start()
 		{
 			if (_inputManager == null)
@@ -28,8 +24,6 @@ namespace HTW.CAVE.Etage6App.Input
 
 			_crosshair = Instantiate(_crosshairPrefab, transform);
 			_crosshair.SetActive(false);
-
-			_onSwitchLight += SwitchTennisBallLights;
 
 			_inputManager.OnAimStart += TakeAim;
 			_inputManager.OnAimEnd += StopAim;
@@ -40,12 +34,6 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_inputManager.IsAiming(_handSide))
 				UpdateCrosshair();
-		}
-
-		public void SwitchTennisBallLights(bool lightsOn)
-		{
-			foreach (var ball in _ballQueue)
-				ball.SwitchLight(lightsOn);
 		}
 
 		private void TakeAim(EHandSide side)
@@ -77,18 +65,10 @@ namespace HTW.CAVE.Etage6App.Input
 				? _ballQueue.Dequeue()
 				: Instantiate(_ammunitionPrefab, transform.position, transform.rotation);
 
-			ball.SwitchLight(_lightsOn);
 			ball.MakeSound();
 			ball.transform.SetPositionAndRotation(transform.position, transform.rotation);
 			ball.GetComponent<Rigidbody>().AddForce(transform.forward * _speed);
 			_ballQueue.Enqueue(ball);
-		}
-
-		public static void SwitchLights(bool isOn)
-		{
-			if (_lightsOn == isOn) return;
-			_lightsOn = isOn;
-			_onSwitchLight(isOn);
 		}
 	}
 }

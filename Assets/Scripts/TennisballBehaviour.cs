@@ -1,17 +1,24 @@
+using System;
 using UnityEngine;
 
 namespace HTW.CAVE.Etage6App
 {
 	public class TennisballBehaviour : MonoBehaviour
 	{
-		[SerializeField] private AudioSource audioSource;
+		[SerializeField] private AudioSource _audioSource;
+		[SerializeField] private Light _light;
 
 		public bool Disabled { get; private set; }
 
-		private void Start()
+		private void Awake()
 		{
-			if (audioSource == null)
-				audioSource = GetComponent<AudioSource>();
+			LightManager.OnLightSwitched += SwitchLight;
+			SwitchLight(LightManager.IsLightOn);
+		}
+
+		private void OnDestroy()
+		{
+			LightManager.OnLightSwitched -= SwitchLight;
 		}
 
 		private void OnCollisionEnter(Collision collision)
@@ -21,13 +28,12 @@ namespace HTW.CAVE.Etage6App
 
 		public void MakeSound()
 		{
-			audioSource.Play();
+			_audioSource.Play();
 		}
 
-		public void SwitchLight(bool lightsOn)
+		private void SwitchLight(bool lightsOn)
 		{
-			var light = transform.GetChild(0).gameObject;
-			light.SetActive(!lightsOn);
+			_light.gameObject.SetActive(lightsOn);
 		}
 	}
 }
