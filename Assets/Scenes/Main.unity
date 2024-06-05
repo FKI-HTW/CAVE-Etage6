@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 463.43176, g: 317.95645, b: 298.21017, a: 1}
+  m_IndirectSpecularColor: {r: 463.6521, g: 318.09146, b: 298.29874, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1088,6 +1088,11 @@ PrefabInstance:
       propertyPath: _doorManager
       value: 
       objectReference: {fileID: 5967446012336197487}
+    - target: {fileID: 8877413531884607098, guid: efd963e9585273b4f93d107a4d84c17f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

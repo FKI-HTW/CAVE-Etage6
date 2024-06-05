@@ -79,7 +79,7 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_leftJoycon == null || _leftJoycon.state == Joycon.state_.NOT_ATTACHED)
 				return Vector2.zero;
-			float[] stickLeft = _leftJoycon.GetStick();
+			var stickLeft = _leftJoycon.GetStick();
 			return new(stickLeft[0], stickLeft[1]);
 		}
 
@@ -87,7 +87,7 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_rightJoycon == null || _rightJoycon.state == Joycon.state_.NOT_ATTACHED)
 				return Vector2.zero;
-			float[] stickRight = _rightJoycon.GetStick();
+			var stickRight = _rightJoycon.GetStick();
 			return new(stickRight[0], stickRight[1]);
 		}
 	}

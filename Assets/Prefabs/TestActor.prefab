@@ -123,6 +123,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3140299006439101453}
+  - {fileID: 7847261744331964221}
   m_Father: {fileID: 5509775840237355729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7299593187634274633
@@ -297,12 +298,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3772420094002479533}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5509775840237355729}
+  m_Father: {fileID: 1759735983504740852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4909837426772010255
 MonoBehaviour:
@@ -322,7 +323,8 @@ MonoBehaviour:
   _crosshairPrefab: {fileID: 6770625251753357869, guid: 0ce4de26d6332ba4496be197d9e4f4ee,
     type: 3}
   _handSide: 0
-  _maxBalls: 300
+  _lerpStrength: 0.5
+  _maxBalls: 100
   _speed: 600
 --- !u!1 &4267653946122177726
 GameObject:
@@ -357,7 +359,6 @@ Transform:
   - {fileID: 1759735983504740852}
   - {fileID: 2138079274854123024}
   - {fileID: 508766346371009022}
-  - {fileID: 7847261744331964221}
   m_Father: {fileID: 708430118103460204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3470390897324996965
@@ -686,11 +687,11 @@ Transform:
   m_GameObject: {fileID: 6102462616648474692}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.76, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9082297261278567226}
+  m_Father: {fileID: 2078541795883179564}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1416791148585470714
 MonoBehaviour:
@@ -710,7 +711,8 @@ MonoBehaviour:
   _crosshairPrefab: {fileID: 6770625251753357869, guid: 0ce4de26d6332ba4496be197d9e4f4ee,
     type: 3}
   _handSide: 1
-  _maxBalls: 300
+  _lerpStrength: 0.5
+  _maxBalls: 100
   _speed: 600
 --- !u!1 &6602548310711598129
 GameObject:
@@ -743,6 +745,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7119506284501443539}
+  - {fileID: 8879245344712731352}
   m_Father: {fileID: 9082297261278567226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7971964542293754386
@@ -792,7 +795,6 @@ Transform:
   - {fileID: 2078541795883179564}
   - {fileID: 6390075729742932048}
   - {fileID: 1745139714880043119}
-  - {fileID: 8879245344712731352}
   m_Father: {fileID: 708430118103460204}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &102915432757575361

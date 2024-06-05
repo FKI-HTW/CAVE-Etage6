@@ -10,8 +10,9 @@ namespace HTW.CAVE.Etage6App.Input
 		[SerializeField] private TennisballBehaviour _ammunitionPrefab;
 		[SerializeField] private GameObject _crosshairPrefab;
 		[SerializeField] private EHandSide _handSide;
+		[SerializeField] [Range(0,1)] private float _lerpStrength = 0.5f;
 
-		[SerializeField] private int _maxBalls = 300;
+		[SerializeField] private int _maxBalls = 100;
 		[SerializeField] private float _speed = 600f;
 
 		private readonly Queue<TennisballBehaviour> _ballQueue = new();
@@ -65,10 +66,7 @@ namespace HTW.CAVE.Etage6App.Input
 		private void UpdateCrosshair()
 		{
 			if (Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity))
-			{
-				_crosshair.transform.GetChild(0).transform.rotation = Quaternion.Euler(hit.normal);
-				_crosshair.transform.position = hit.point;
-			}
+				_crosshair.transform.position = Vector3.Lerp(_crosshair.transform.position, hit.point, _lerpStrength);
 		}
 
 		private void ThrowBall(EHandSide side)
