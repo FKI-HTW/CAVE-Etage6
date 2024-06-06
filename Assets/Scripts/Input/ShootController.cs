@@ -16,11 +16,14 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private readonly Queue<TennisballBehaviour> _ballQueue = new();
 		private GameObject _crosshair;
+		private int _layerMask;
 
-		public void Start()
+		private void Start()
 		{
 			if (_inputManager == null)
 				_inputManager = GameObject.FindWithTag("InputManager").GetComponent<InputManager>();
+
+			_layerMask = LayerMask.NameToLayer("CAVE");
 
 			_crosshair = Instantiate(_crosshairPrefab, transform);
 			_crosshair.SetActive(false);
@@ -28,6 +31,13 @@ namespace HTW.CAVE.Etage6App.Input
 			_inputManager.OnAimStart += TakeAim;
 			_inputManager.OnAimEnd += StopAim;
 			_inputManager.OnShoot += ThrowBall;
+		}
+
+		private void OnDestroy()
+		{
+			_inputManager.OnAimStart -= TakeAim;
+			_inputManager.OnAimEnd -= StopAim;
+			_inputManager.OnShoot -= ThrowBall;
 		}
 
 		public void Update()
@@ -53,7 +63,7 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private void UpdateCrosshair()
 		{
-			if (Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity))
+			if (Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity, _layerMask, QueryTriggerInteraction.UseGlobal))
 				_crosshair.transform.position = Vector3.Lerp(_crosshair.transform.position, hit.point, _lerpStrength);
 		}
 
