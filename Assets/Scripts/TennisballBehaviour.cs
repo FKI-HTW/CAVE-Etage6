@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace HTW.CAVE.Etage6App
@@ -7,8 +6,6 @@ namespace HTW.CAVE.Etage6App
 	{
 		[SerializeField] private AudioSource _audioSource;
 		[SerializeField] private Light _light;
-
-		public bool Disabled { get; private set; }
 
 		private void Awake()
 		{
@@ -19,11 +16,6 @@ namespace HTW.CAVE.Etage6App
 		private void OnDestroy()
 		{
 			LightManager.OnLightSwitched -= SwitchLight;
-		}
-
-		private void OnCollisionEnter(Collision collision)
-		{
-			Disabled = true;
 		}
 
 		public void MakeSound()

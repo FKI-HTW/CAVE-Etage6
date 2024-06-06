@@ -6,9 +6,7 @@ namespace HTW.CAVE.Etage6App
 	{
 		private void OnTriggerEnter(Collider other)
 		{
-			Debug.Log(other.tag);
-			if (!other.CompareTag("Projektil")) 
-				return;
+			if (!other.CompareTag("Projektil")) return;
 			LightManager.SwitchLight();
 		}
 	}

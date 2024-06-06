@@ -1500,9 +1500,9 @@ GameObject:
   - component: {fileID: 7705442372244757364}
   - component: {fileID: 7226042300403141337}
   - component: {fileID: 5502771021291853842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CAVE
-  m_TagString: Untagged
+  m_TagString: CAVE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

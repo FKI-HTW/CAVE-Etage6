@@ -42,8 +42,7 @@ namespace HTW.CAVE.Etage6App
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (!other.CompareTag("Projektil") || !_readyToHit 
-				|| other.GetComponent<TennisballBehaviour>().Disabled) 
+			if (!other.CompareTag("Projektil") || !_readyToHit) 
 				return;
 			
 			audioSource.Play();
