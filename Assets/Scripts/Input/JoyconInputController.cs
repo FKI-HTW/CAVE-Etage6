@@ -37,20 +37,13 @@ namespace HTW.CAVE.Etage6App.Input
 			if (_leftJoycon != null)
 			{
 				if (_leftJoycon.GetButton(_shootButton))
-				{
-					_leftJoycon.SetRumble(160.0f, 320.0f, 0.6f, 150);
 					_inputManager.Shoot(EHandSide.Left);
-				}
 
 				if (_leftJoycon.GetButtonDown(_aimButton))
-				{
 					_inputManager.AimStart(EHandSide.Left);
-				}
 
 				if (_leftJoycon.GetButtonUp(_aimButton))
-				{
 					_inputManager.AimEnd(EHandSide.Left);
-				}
 			}
 
 			if (_rightJoycon == null || _rightJoycon.state == Joycon.state_.NOT_ATTACHED)
@@ -58,21 +51,14 @@ namespace HTW.CAVE.Etage6App.Input
 
 			if (_rightJoycon != null)
 			{
-				if (_rightJoycon.GetButtonDown(_shootButton))
-				{
-					_rightJoycon.SetRumble(160.0f, 320.0f, 0.6f, 150);
+				if (_rightJoycon.GetButton(_shootButton))
 					_inputManager.Shoot(EHandSide.Right);
-				}
 
 				if (_rightJoycon.GetButtonDown(_aimButton))
-				{
 					_inputManager.AimStart(EHandSide.Right);
-				}
 
 				if (_rightJoycon.GetButtonUp(_aimButton))
-				{
 					_inputManager.AimEnd(EHandSide.Right);
-				}
 			}
 		}
 

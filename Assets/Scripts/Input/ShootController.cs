@@ -8,6 +8,7 @@ namespace HTW.CAVE.Etage6App.Input
 		[SerializeField] private InputManager _inputManager;
 		[SerializeField] private TennisballBehaviour _ammunitionPrefab;
 		[SerializeField] private GameObject _crosshairPrefab;
+		[SerializeField] private Transform _cameraPivot;
 		[SerializeField] private EHandSide _handSide;
 
 		[SerializeField] private int _maxBalls = 100;
@@ -25,6 +26,8 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_inputManager == null)
 				_inputManager = GameObject.FindWithTag("InputManager").GetComponent<InputManager>();
+			if (_cameraPivot == null)
+				_cameraPivot = GameObject.FindWithTag("ActorHead").transform;
 
 			_layerMask = LayerMask.NameToLayer("CAVE");
 
@@ -34,6 +37,8 @@ namespace HTW.CAVE.Etage6App.Input
 			_inputManager.OnAimStart += TakeAim;
 			_inputManager.OnAimEnd += StopAim;
 			_inputManager.OnShoot += ThrowBall;
+			
+			_shootTime = _shootDelay;
 		}
 
 		private void OnDestroy()
@@ -67,15 +72,16 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private void UpdateCrosshair()
 		{
-			if (Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity, _layerMask, QueryTriggerInteraction.UseGlobal))
-				_crosshair.transform.position = Vector3.Lerp(_crosshair.transform.position, hit.point, _lerpStrength);
+			if (!Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity, _layerMask, QueryTriggerInteraction.UseGlobal)) 
+				return;
+			
+			_crosshair.transform.position = Vector3.Lerp(_crosshair.transform.position, hit.point, _lerpStrength);
+			_crosshair.transform.LookAt(_cameraPivot);
 		}
 
 		private void ThrowBall(EHandSide side)
 		{
-			if (side != _handSide || !_inputManager.IsAiming(_handSide)) 
-				return;
-			if (_shootTime > _shootDelay)
+			if (side != _handSide || !_inputManager.IsAiming(_handSide) || _shootTime < _shootDelay)
 				return;
 
 			var ball = _ballQueue.Count >= _maxBalls
