@@ -36,7 +36,7 @@ namespace HTW.CAVE.Etage6App.Input
 			
 			if (_leftJoycon != null)
 			{
-				if (_leftJoycon.GetButtonDown(_shootButton))
+				if (_leftJoycon.GetButton(_shootButton))
 				{
 					_leftJoycon.SetRumble(160.0f, 320.0f, 0.6f, 150);
 					_inputManager.Shoot(EHandSide.Left);

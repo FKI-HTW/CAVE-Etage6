@@ -9,14 +9,17 @@ namespace HTW.CAVE.Etage6App.Input
 		[SerializeField] private TennisballBehaviour _ammunitionPrefab;
 		[SerializeField] private GameObject _crosshairPrefab;
 		[SerializeField] private EHandSide _handSide;
-		[SerializeField] [Range(0,1)] private float _lerpStrength = 0.5f;
 
 		[SerializeField] private int _maxBalls = 100;
 		[SerializeField] private float _speed = 600f;
+		[SerializeField] private float _shootDelay = 1f;
+		[SerializeField] [Range(0,1)] private float _lerpStrength = 0.5f;
 
 		private readonly Queue<TennisballBehaviour> _ballQueue = new();
 		private GameObject _crosshair;
 		private int _layerMask;
+
+		private float _shootTime;
 
 		private void Start()
 		{
@@ -44,6 +47,7 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_inputManager.IsAiming(_handSide))
 				UpdateCrosshair();
+			_shootTime += Time.deltaTime;
 		}
 
 		private void TakeAim(EHandSide side)
@@ -69,7 +73,10 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private void ThrowBall(EHandSide side)
 		{
-			if (side != _handSide) return;
+			if (side != _handSide || !_inputManager.IsAiming(_handSide)) 
+				return;
+			if (_shootTime > _shootDelay)
+				return;
 
 			var ball = _ballQueue.Count >= _maxBalls
 				? _ballQueue.Dequeue()
@@ -79,6 +86,7 @@ namespace HTW.CAVE.Etage6App.Input
 			ball.transform.SetPositionAndRotation(transform.position, transform.rotation);
 			ball.GetComponent<Rigidbody>().AddForce(transform.forward * _speed);
 			_ballQueue.Enqueue(ball);
+			_shootTime = 0;
 		}
 	}
 }

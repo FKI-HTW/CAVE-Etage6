@@ -18,20 +18,17 @@ namespace HTW.CAVE.Etage6App.Input
 			{ EHandSide.Left, false }, {  EHandSide.Right, false }
 		};
 
-		public Vector2 MovementInput => _movementInput;
-		private Vector2 _movementInput;
-
-		public Vector2 RotationalInput => _rotationalInput;
-		private Vector2 _rotationalInput;
+		public Vector2 MovementInput { get; private set; }
+		public Vector2 RotationalInput { get; private set; }
 
 		private void Update()
 		{
-			_movementInput = Vector2.zero;
-			_rotationalInput = Vector2.zero;
+			MovementInput = Vector2.zero;
+			RotationalInput = Vector2.zero;
 			foreach (var controller in _controllers)
 			{
-				_movementInput += controller.GetMovementInput();
-				_rotationalInput += controller.GetRotationalInput();
+				MovementInput += controller.GetMovementInput();
+				RotationalInput += controller.GetRotationalInput();
 			}
 		}
 
