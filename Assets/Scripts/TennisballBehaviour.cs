@@ -4,31 +4,28 @@ namespace HTW.CAVE.Etage6App
 {
 	public class TennisballBehaviour : MonoBehaviour
 	{
-		[SerializeField] private AudioSource audioSource;
+		[SerializeField] private AudioSource _audioSource;
+		[SerializeField] private Light _light;
 
-		public bool Disabled { get => disabled; }
-		private bool disabled = false;
-
-		private void Start()
+		private void Awake()
 		{
-			if (audioSource == null)
-				audioSource = GetComponent<AudioSource>();
+			LightManager.OnLightSwitched += SwitchLight;
+			SwitchLight(LightManager.IsLightOn);
 		}
 
-		private void OnCollisionEnter(Collision collision)
+		private void OnDestroy()
 		{
-			disabled = true;
+			LightManager.OnLightSwitched -= SwitchLight;
 		}
 
 		public void MakeSound()
 		{
-			audioSource.Play();
+			_audioSource.Play();
 		}
 
-		public void SwitchLight(bool lightsOn)
+		private void SwitchLight(bool lightsOn)
 		{
-			GameObject light = transform.GetChild(0).gameObject;
-			light.SetActive(!lightsOn);
+			_light.gameObject.SetActive(lightsOn);
 		}
 	}
 }

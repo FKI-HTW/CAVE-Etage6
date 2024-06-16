@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace HTW.CAVE.Etage6App.Input
@@ -9,42 +8,51 @@ namespace HTW.CAVE.Etage6App.Input
 		[SerializeField] private InputManager _inputManager;
 		[SerializeField] private TennisballBehaviour _ammunitionPrefab;
 		[SerializeField] private GameObject _crosshairPrefab;
+		[SerializeField] private Transform _cameraPivot;
 		[SerializeField] private EHandSide _handSide;
 
-		[SerializeField] private int _maxBalls = 300;
+		[SerializeField] private int _maxBalls = 100;
 		[SerializeField] private float _speed = 600f;
+		[SerializeField] private float _shootDelay = 1f;
+		[SerializeField] [Range(0,1)] private float _lerpStrength = 0.5f;
 
 		private readonly Queue<TennisballBehaviour> _ballQueue = new();
 		private GameObject _crosshair;
+		private int _layerMask;
 
-		private static Action<bool> _onSwitchLight;
-		private static bool _lightsOn = true;
+		private float _shootTime;
 
-		public void Start()
+		private void Start()
 		{
 			if (_inputManager == null)
 				_inputManager = GameObject.FindWithTag("InputManager").GetComponent<InputManager>();
+			if (_cameraPivot == null)
+				_cameraPivot = GameObject.FindWithTag("ActorHead").transform;
+
+			_layerMask = LayerMask.NameToLayer("CAVE");
 
 			_crosshair = Instantiate(_crosshairPrefab, transform);
 			_crosshair.SetActive(false);
 
-			_onSwitchLight += SwitchTennisBallLights;
-
 			_inputManager.OnAimStart += TakeAim;
 			_inputManager.OnAimEnd += StopAim;
 			_inputManager.OnShoot += ThrowBall;
+			
+			_shootTime = _shootDelay;
+		}
+
+		private void OnDestroy()
+		{
+			_inputManager.OnAimStart -= TakeAim;
+			_inputManager.OnAimEnd -= StopAim;
+			_inputManager.OnShoot -= ThrowBall;
 		}
 
 		public void Update()
 		{
 			if (_inputManager.IsAiming(_handSide))
 				UpdateCrosshair();
-		}
-
-		public void SwitchTennisBallLights(bool lightsOn)
-		{
-			foreach (TennisballBehaviour ball in _ballQueue)
-				ball.SwitchLight(lightsOn);
+			_shootTime += Time.deltaTime;
 		}
 
 		private void TakeAim(EHandSide side)
@@ -64,33 +72,27 @@ namespace HTW.CAVE.Etage6App.Input
 
 		private void UpdateCrosshair()
 		{
-			if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, Mathf.Infinity))
-			{
-				_crosshair.transform.GetChild(0).transform.rotation = Quaternion.Euler(hit.normal);
-				_crosshair.transform.position = hit.point;
-			}
+			if (!Physics.Raycast(transform.position, transform.forward, out var hit, Mathf.Infinity, _layerMask, QueryTriggerInteraction.UseGlobal)) 
+				return;
+			
+			_crosshair.transform.position = Vector3.Lerp(_crosshair.transform.position, hit.point, _lerpStrength);
+			_crosshair.transform.LookAt(_cameraPivot);
 		}
 
 		private void ThrowBall(EHandSide side)
 		{
-			if (side != _handSide) return;
+			if (side != _handSide || !_inputManager.IsAiming(_handSide) || _shootTime < _shootDelay)
+				return;
 
-			TennisballBehaviour ball = _ballQueue.Count >= _maxBalls
+			var ball = _ballQueue.Count >= _maxBalls
 				? _ballQueue.Dequeue()
 				: Instantiate(_ammunitionPrefab, transform.position, transform.rotation);
 
-			ball.SwitchLight(_lightsOn);
 			ball.MakeSound();
 			ball.transform.SetPositionAndRotation(transform.position, transform.rotation);
 			ball.GetComponent<Rigidbody>().AddForce(transform.forward * _speed);
 			_ballQueue.Enqueue(ball);
-		}
-
-		public static void SwitchLights(bool isOn)
-		{
-			if (_lightsOn == isOn) return;
-			_lightsOn = isOn;
-			_onSwitchLight(isOn);
+			_shootTime = 0;
 		}
 	}
 }

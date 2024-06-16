@@ -20,7 +20,7 @@ GameObject:
   m_TagString: Projektil
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &400000
 Transform:
@@ -244,7 +244,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2832f3e233c3c8140a7da5c708477aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 7824433546209560066}
+  _audioSource: {fileID: 7824433546209560066}
+  _light: {fileID: 10800000}
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0

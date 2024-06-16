@@ -6,12 +6,12 @@ namespace HTW.CAVE.Etage6App
 	{
 		private enum EnemyType
 		{
-			standing,
-			rotating,
-			dropping
+			Standing,
+			Rotating,
+			Dropping
 		}
 
-		[SerializeField] private EnemyType enemyType = EnemyType.standing;
+		[SerializeField] private EnemyType enemyType = EnemyType.Standing;
 		[SerializeField] private Texture normalTexture;
 		[SerializeField] private Texture hitTexture;
 		[SerializeField] private Renderer _frontRenderer;
@@ -19,10 +19,10 @@ namespace HTW.CAVE.Etage6App
 		[SerializeField, Range(1, 5)] private float speed = 3f;
 		[SerializeField, Range(3, 60)] private float reactivationInterval = 3;
 
-		private bool readyToHit;
-		private Vector3 startPosition;
-		private Vector3 startRotation;
-		private Vector3 targetRotation;
+		private bool _readyToHit;
+		private Vector3 _startPosition;
+		private Vector3 _startRotation;
+		private Vector3 _targetRotation;
 
 		private void Start()
 		{
@@ -32,26 +32,27 @@ namespace HTW.CAVE.Etage6App
 				audioSource = GetComponent<AudioSource>();
 			audioSource.volume = 0.2f;
 
-			startRotation = transform.localEulerAngles;
-			targetRotation = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + 180, transform.localEulerAngles.z);
-			startPosition = transform.position;
-			readyToHit = true;
+			var localEulerAngles = transform.localEulerAngles;
+			_startRotation = localEulerAngles;
+			_targetRotation = new(localEulerAngles.x, localEulerAngles.y + 180, localEulerAngles.z);
+			_startPosition = transform.position;
+			_readyToHit = true;
 		}
 
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.CompareTag("Projektil") && readyToHit && !other.GetComponent<TennisballBehaviour>().Disabled)
-			{
-				audioSource.Play();
-				readyToHit = false;
-				_frontRenderer.material.SetTexture("_BaseColorMap", hitTexture);
-			}
+			if (!other.CompareTag("Projektil") || !_readyToHit) 
+				return;
+			
+			audioSource.Play();
+			_readyToHit = false;
+			_frontRenderer.material.SetTexture("_BaseColorMap", hitTexture);
 		}
 
 		private void Reactivate()
 		{
-			readyToHit = true;
+			_readyToHit = true;
 			_frontRenderer.material.SetTexture("_BaseColorMap", normalTexture);
 		}
 
@@ -59,41 +60,41 @@ namespace HTW.CAVE.Etage6App
 		{
 			switch (enemyType)
 			{
-				case EnemyType.dropping:
-					if (readyToHit && transform.position.y > 0)
+				case EnemyType.Dropping:
+					if (_readyToHit && transform.position.y > 0)
 					{
-						transform.position += speed * Time.deltaTime * (-transform.up);
+						transform.position += speed * Time.deltaTime * -transform.up;
 					}
-					else if (!readyToHit && transform.position.y < startPosition.y)
+					else if (!_readyToHit && transform.position.y < _startPosition.y)
 					{
 						transform.position += speed * Time.deltaTime * transform.up;
-						if (transform.position.y >= startPosition.y)
+						if (transform.position.y >= _startPosition.y)
 						{
 							Invoke(nameof(Reactivate), reactivationInterval);
 						}
 					}
 					break;
-				case EnemyType.rotating:
-					if (readyToHit) //startrotation.y = 150
+				case EnemyType.Rotating:
+					if (_readyToHit) //startrotation.y = 150
 					{
-						if (transform.localEulerAngles.y < targetRotation.y)
+						if (transform.localEulerAngles.y < _targetRotation.y)
 						{
 							transform.RotateAround(transform.position, transform.up, Time.deltaTime * 30 * speed);
 						}
 						return;
 					}
 
-					if (transform.localEulerAngles.y > startRotation.y)
+					if (transform.localEulerAngles.y > _startRotation.y)
 					{
 						transform.RotateAround(transform.position, -transform.up, Time.deltaTime * 30 * speed);
-						if (transform.localEulerAngles.y <= startRotation.y)
+						if (transform.localEulerAngles.y <= _startRotation.y)
 						{
 							Invoke(nameof(Reactivate), reactivationInterval);
 						}
 					}
 					break;
-				case EnemyType.standing:
-					if (readyToHit)
+				case EnemyType.Standing:
+					if (_readyToHit)
 					{
 						if (gameObject.name == "EnemyS2")
 						{

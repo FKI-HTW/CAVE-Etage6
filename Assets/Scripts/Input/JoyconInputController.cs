@@ -3,6 +3,7 @@ using LookingGlass.JoyconLib;
 
 namespace HTW.CAVE.Etage6App.Input
 {
+	// TODO : convert legacy input system and manual Joycon input to new InputSystem
 	public class JoyconInputController : MonoBehaviour, IInputController
 	{
 		[SerializeField] private InputManager _inputManager;
@@ -35,21 +36,14 @@ namespace HTW.CAVE.Etage6App.Input
 			
 			if (_leftJoycon != null)
 			{
-				if (_leftJoycon.GetButtonDown(_shootButton))
-				{
-					_leftJoycon.SetRumble(160.0f, 320.0f, 0.6f, 150);
+				if (_leftJoycon.GetButton(_shootButton))
 					_inputManager.Shoot(EHandSide.Left);
-				}
 
 				if (_leftJoycon.GetButtonDown(_aimButton))
-				{
 					_inputManager.AimStart(EHandSide.Left);
-				}
 
 				if (_leftJoycon.GetButtonUp(_aimButton))
-				{
 					_inputManager.AimEnd(EHandSide.Left);
-				}
 			}
 
 			if (_rightJoycon == null || _rightJoycon.state == Joycon.state_.NOT_ATTACHED)
@@ -57,21 +51,14 @@ namespace HTW.CAVE.Etage6App.Input
 
 			if (_rightJoycon != null)
 			{
-				if (_rightJoycon.GetButtonDown(_shootButton))
-				{
-					_rightJoycon.SetRumble(160.0f, 320.0f, 0.6f, 150);
+				if (_rightJoycon.GetButton(_shootButton))
 					_inputManager.Shoot(EHandSide.Right);
-				}
 
 				if (_rightJoycon.GetButtonDown(_aimButton))
-				{
 					_inputManager.AimStart(EHandSide.Right);
-				}
 
 				if (_rightJoycon.GetButtonUp(_aimButton))
-				{
 					_inputManager.AimEnd(EHandSide.Right);
-				}
 			}
 		}
 
@@ -79,7 +66,7 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_leftJoycon == null || _leftJoycon.state == Joycon.state_.NOT_ATTACHED)
 				return Vector2.zero;
-			float[] stickLeft = _leftJoycon.GetStick();
+			var stickLeft = _leftJoycon.GetStick();
 			return new(stickLeft[0], stickLeft[1]);
 		}
 
@@ -87,7 +74,7 @@ namespace HTW.CAVE.Etage6App.Input
 		{
 			if (_rightJoycon == null || _rightJoycon.state == Joycon.state_.NOT_ATTACHED)
 				return Vector2.zero;
-			float[] stickRight = _rightJoycon.GetStick();
+			var stickRight = _rightJoycon.GetStick();
 			return new(stickRight[0], stickRight[1]);
 		}
 	}
