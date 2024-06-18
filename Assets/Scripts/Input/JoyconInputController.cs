@@ -9,7 +9,6 @@ namespace HTW.CAVE.Etage6App.Input
 		[SerializeField] private InputManager _inputManager;
 		[SerializeField] private JoyconManager _joyconManager;
 		[SerializeField] private Joycon.Button _shootButton;
-		[SerializeField] private Joycon.Button _aimButton;
 
 		private Joycon _leftJoycon;
 		private Joycon _rightJoycon;
@@ -38,12 +37,6 @@ namespace HTW.CAVE.Etage6App.Input
 			{
 				if (_leftJoycon.GetButton(_shootButton))
 					_inputManager.Shoot(EHandSide.Left);
-
-				if (_leftJoycon.GetButtonDown(_aimButton))
-					_inputManager.AimStart(EHandSide.Left);
-
-				if (_leftJoycon.GetButtonUp(_aimButton))
-					_inputManager.AimEnd(EHandSide.Left);
 			}
 
 			if (_rightJoycon == null || _rightJoycon.state == Joycon.state_.NOT_ATTACHED)
@@ -53,12 +46,6 @@ namespace HTW.CAVE.Etage6App.Input
 			{
 				if (_rightJoycon.GetButton(_shootButton))
 					_inputManager.Shoot(EHandSide.Right);
-
-				if (_rightJoycon.GetButtonDown(_aimButton))
-					_inputManager.AimStart(EHandSide.Right);
-
-				if (_rightJoycon.GetButtonUp(_aimButton))
-					_inputManager.AimEnd(EHandSide.Right);
 			}
 		}
 
