@@ -48,6 +48,7 @@ namespace HTW.CAVE.Etage6App.Input
 				? _ballQueue.Dequeue()
 				: Instantiate(_ammunitionPrefab, transform.position, transform.rotation);
 
+			ball.Disabled = false;
 			ball.MakeSound();
 			ball.transform.SetPositionAndRotation(transform.position, transform.rotation);
 			ball.GetComponent<Rigidbody>().AddForce(transform.forward * _speed);

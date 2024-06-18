@@ -6,7 +6,12 @@ namespace HTW.CAVE.Etage6App
 	{
 		private void OnTriggerEnter(Collider other)
 		{
-			if (!other.CompareTag("Projektil")) return;
+			if (!other.CompareTag("Projektil") 
+			    || !other.TryGetComponent<TennisballBehaviour>(out var ball) 
+			    || ball.Disabled)
+				return;
+
+			ball.Disabled = true;
 			LightManager.SwitchLight();
 		}
 	}
