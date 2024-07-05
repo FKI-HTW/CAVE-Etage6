@@ -211,12 +211,12 @@
       },
       "url": "https://packages.unity.com"
     },
-    "de.htw.cave": {
-      "version": "https://github.com/CENTIS-HTW/CAVE.git#upm",
+    "de.htw-berlin.cave": {
+      "version": "https://github.com/FKI-HTW/CAVE.git#1.0.1",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "30026e9ff1240104bd05061fd92915c0b57e53d8"
+      "hash": "a76ca27ddc88aa90d6a20bbeda10155ac29244ad"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

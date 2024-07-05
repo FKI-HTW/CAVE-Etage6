@@ -7,6 +7,8 @@ namespace HTW.CAVE.Etage6App
 		[SerializeField] private AudioSource _audioSource;
 		[SerializeField] private Light _light;
 
+		public bool Disabled;
+
 		private void Awake()
 		{
 			LightManager.OnLightSwitched += SwitchLight;

@@ -6,7 +6,6 @@ namespace HTW.CAVE.Etage6App.Input
 	{
 		[SerializeField] private InputManager _inputManager;
 		[SerializeField] private KeyCode _shootButton;
-		[SerializeField] private KeyCode _aimButton;
 
 		private void Start()
 		{
@@ -26,16 +25,6 @@ namespace HTW.CAVE.Etage6App.Input
 			if (UnityEngine.Input.GetKeyDown(_shootButton))
 			{
 				_inputManager.Shoot(EHandSide.Right);
-			}
-
-			if (UnityEngine.Input.GetKeyDown(_aimButton))
-			{
-				_inputManager.AimStart(EHandSide.Right);
-			}
-
-			if (UnityEngine.Input.GetKeyUp(_aimButton))
-			{
-				_inputManager.AimEnd(EHandSide.Right);
 			}
 		}
 
