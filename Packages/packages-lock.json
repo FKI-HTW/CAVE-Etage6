@@ -166,9 +166,9 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {
+        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.director": "1.0.0",
         "com.unity.modules.animation": "1.0.0",
-        "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -212,11 +212,11 @@
       "url": "https://packages.unity.com"
     },
     "de.htw-berlin.cave": {
-      "version": "https://github.com/FKI-HTW/CAVE.git#1.0.1",
+      "version": "https://github.com/FKI-HTW/CAVE.git#upm",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "a76ca27ddc88aa90d6a20bbeda10155ac29244ad"
+      "hash": "93a21f1d31d1e37826a970ea1cb8502d53585876"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
